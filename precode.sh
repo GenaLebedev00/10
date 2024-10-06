@@ -7,13 +7,11 @@
 #   dir3
 #       dir4
 
-mkdir -p ./task/{dir1,dir2,dir3}
-cd ./task/dir3
-mkdir dir4
+mkdir -p ./task/{dir1,dir2,dir3/dir4}
 
 # изменяем текущую директорию на task
 
-cd ./task
+cd task
 
 # создаём пустой файл task/dir2/empty
 
@@ -36,20 +34,20 @@ ls ./task/dir2 > ./task/dir2/list.txt
 
 # копируем содержимое каталога task/dir2 в каталог task/dir3/dir4
 
-cp -r -T ./task/dir2 ./task/dir3/dir4
+cp -r ./task/dir2/* ./task/dir3/dir4
 
 # записываем в task/dir1/summary.txt список файлов с расширением *.txt
 # находящихся в task, включая поддиректории
 
-ls . | grep 'txt' > ./task/dir1/summary.txt
+find ./task -name "*.txt" > ./task/dir1/summary.txt
 
 # дописываем в task/dir1/summary.txt содержимое task/dir2/list.txt
 
-cat ./task/dir2/list.txt >> ./task/dir2/list.txt
+cat ./task/dir2/list.txt >> ./task/dir2/summary.txt
 
 # определяем переменную окружения NAME со значением "Всем студентам"
 
-NAME='Всем студентам'
+export NAME='Всем студентам'
 
 # запускаем task/dir2/hello.sh с переменной окружения NAME в качестве аргумента
 # вывод скрипта должен дописаться в файл task/dir1/summary.txt
@@ -67,7 +65,7 @@ cat ./task/'Практическое задание'
 # ищем в файле "Практическое задание" строки, которые содержат слово "dir"
 # и затем отсортировываем их
 
-grep -n "dir" ./task/'Практическое задание'
+grep -n "dir" ./task/'Практическое задание' | sort
 
 # меняем текущую директорию на родительскую для task
 
